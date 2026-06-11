@@ -667,7 +667,9 @@ function mountLevel(id){
 }
 function exitToMap(){
   $('stage').classList.remove('show');
-  $('frameHost').innerHTML='';   // 卸载 iframe，重入即重置
+  const host=$('frameHost'), ifr=host.querySelector('iframe');
+  if(ifr){ try{ ifr.src='about:blank'; }catch(e){} }   // 先导航空白页：强制旧关卡文档卸载 → 触发其 unload（close AudioContext），释放音频/内存
+  host.innerHTML='';             // 再移除 iframe；重入即重置
   currentId = null;
   $('replayBtn').style.display='';
   AUDIO.setScene('map');

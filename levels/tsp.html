@@ -219,7 +219,7 @@ const NAMES=['母港','雾屿','珊礁','鸥岩','海蚀门','远岬','龙脊礁
 const BASE_PORTS=[{x:47.6,y:32.1},{x:82.6,y:12.8},{x:56.1,y:18.1},{x:17.1,y:13.5},{x:82.4,y:30.1},{x:38.0,y:17.2},{x:60.2,y:40.8},{x:21.7,y:48.9},{x:26.6,y:29.5},{x:86.4,y:44.3}];
 const DPU=7, PROVISIONS=36, GOLD_DAYS=31, COIN_PER_RATION=8, COIN_BASE=30;
 const PORT_W=132, HOME_W=178, SHIP_W=82;
-let actx=null;
+let actx=null; /*actx-cleanup*/function __actxClose(){try{if(actx&&actx.state!=="closed")actx.close();}catch(e){}}window.addEventListener("pagehide",__actxClose);window.addEventListener("unload",__actxClose);
 function tone(f,d,v,t,delay){try{if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();if(actx.state=='suspended')actx.resume();const o=actx.createOscillator(),g=actx.createGain();const t0=actx.currentTime+(delay||0);o.type=t||'sine';o.frequency.value=f;g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(v,t0+.01);g.gain.exponentialRampToValueAtTime(.0001,t0+d);o.connect(g).connect(actx.destination);o.start(t0);o.stop(t0+d);}catch(e){}}
 const sLift=()=>tone(560,.09,.045,'sine');
 const sGood=()=>{tone(523,.12,.05);tone(698,.14,.045,'sine',.06);tone(880,.18,.04,'sine',.13);};

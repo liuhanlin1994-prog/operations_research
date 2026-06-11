@@ -238,7 +238,7 @@ function lam(t){const f=t/DAY;
 function expd(m){return Math.max(1,-m*Math.log(Math.random()));}
 
 /* ---- audio ---- */
-let actx=null;
+let actx=null; /*actx-cleanup*/function __actxClose(){try{if(actx&&actx.state!=="closed")actx.close();}catch(e){}}window.addEventListener("pagehide",__actxClose);window.addEventListener("unload",__actxClose);
 function tone(f,d,v,t,delay){try{if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();if(actx.state=='suspended')actx.resume();
  const o=actx.createOscillator(),g=actx.createGain();const t0=actx.currentTime+(delay||0);o.type=t||'sine';o.frequency.value=f;
  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(v,t0+.01);g.gain.exponentialRampToValueAtTime(.0001,t0+d);
