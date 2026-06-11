@@ -188,6 +188,10 @@ body{
 .stage-bar .save{margin-left:auto;font-size:11px;color:var(--gold);opacity:.55;pointer-events:none;}
 #frameHost{position:absolute;inset:0;}
 #frameHost iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#160d05;}
+.frameLoad{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;background:#0c0905;}
+.frameLoad .fl-spin{width:40px;height:40px;border:3px solid rgba(216,178,90,.22);border-top-color:var(--gold-b);border-radius:50%;animation:flspin .8s linear infinite;}
+@keyframes flspin{to{transform:rotate(360deg)}}
+.frameLoad .fl-tip{font-family:"Cinzel","Noto Serif SC",serif;color:var(--gold-b);font-size:13.5px;letter-spacing:.12em;opacity:.82;}
 
 /* ---------- 图鉴 ---------- */
 .dexgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 8px;}
@@ -653,9 +657,19 @@ function mountLevel(id){
   const l = byId(id); currentId = id;
   const host = $('frameHost');
   host.innerHTML='';
+  // 载入遮罩：盖住关卡解析/解码大图的中间态（避免露出未排好的"缩略图"），给等待一个反馈
+  const load = document.createElement('div');
+  load.className = 'frameLoad';
+  load.innerHTML = '<div class="fl-spin"></div><div class="fl-tip">'+l.name+' · 载入中…</div>';
+  host.appendChild(load);
   const html = DATA.levels && DATA.levels[id];
   const ifr = document.createElement('iframe');
   ifr.setAttribute('title', l.name);
+  ifr.style.opacity = '0'; ifr.style.transition = 'opacity .35s ease';
+  let shown = false;
+  const reveal = ()=>{ if(shown) return; shown = true; ifr.style.opacity = '1'; setTimeout(()=>{ try{ load.remove(); }catch(e){} }, 380); };
+  ifr.addEventListener('load', ()=> setTimeout(reveal, 150));   // 关卡加载完 + 留点时间给内部缩放，再淡入
+  setTimeout(reveal, 3000);                                     // 兜底：无论如何 3s 后必显示，绝不黑屏卡死
   if(html){ ifr.srcdoc = html; }                       // 单文件版：内嵌
   else if(DATA.webLevels){ ifr.src = 'levels/'+id+'.html'; }  // 网页版：按需加载外置关卡
   else { ifr.srcdoc = '<body style="background:#160d05;color:#efe6cf;font-family:serif;display:flex;align-items:center;justify-content:center;height:100vh;text-align:center;padding:8vw"><div>关卡内容未注入。<br>请先运行 <code>node build/inject.mjs</code> 生成 dist 版本。</div></body>'; }
