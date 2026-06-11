@@ -138,7 +138,7 @@ body{font-family:'Noto Serif SC',serif;color:var(--cream);background:#0a0805;min
 .front .csub{font-size:11px;color:var(--cream);z-index:2;text-align:center;padding-bottom:13px;text-shadow:0 1px 3px #000;}
 .front.foil::after{content:"烫金";position:absolute;top:9px;right:9px;font-size:10px;color:#1a1206;background:var(--gold-b);padding:3px 8px;border-radius:10px;z-index:3;}
 .front.foil{box-shadow:inset 0 0 32px rgba(244,217,144,.45);}
-.back{background:linear-gradient(160deg,#1c2a2c,#0d1416);transform:rotateY(180deg);padding:16px 15px;text-align:left;overflow-y:auto;}
+.back{background:linear-gradient(160deg,#1c2a2c,#0d1416);transform:rotateY(180deg);padding:16px 15px;text-align:left;}
 .back .bt{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-bottom:7px;}
 .back .bk{font-size:12.5px;color:var(--cream);line-height:1.55;font-style:italic;margin-bottom:9px;}
 .back .bu{font-size:11px;color:rgba(239,230,207,.74);line-height:1.62;}.back .bu b{color:var(--gold-b);}
@@ -402,7 +402,7 @@ function principle(){const cn=S.N,cnt=routeCount(cn),y25=Math.round(yearsFor(25)
 function card(){const foil=S._grade==='gold';
  $('panel').innerHTML='<h2>取回妙策卡</h2><div class="cardstage"><div class="card3d" id="c3d">'
   +'<div class="face front '+(foil?'foil':'')+'"><div class="cimg" style="background-image:url('+ART.card+')"></div><div class="cgrad"></div><div class="cname">旅行商</div><div class="csub">组合爆炸 · 巧解胜枚举</div></div>'
-  +'<div class="face back"><div class="bt">旅行商 · 算不完的最短环线</div><div class="bk">有些路算不完——真本事是用巧劲逼近最好，而非逐条试遍。</div><div class="bu">港一多，走法就<b>组合爆炸</b>式暴涨、根本试不完。<br><b>贪心</b>（每步挑最近）：快，可整体未必短；<br><b>解结</b>：解开交叉的航段，一定更短；<br><b>挪位</b>：把排错的港挪到更顺的次序。<br><span style="opacity:.82">用处：配送 · 芯片布线 · 冷链 · 巡检</span></div></div></div></div>'
+  +'<div class="face back"><div class="bt">旅行商 · 算不完的最短环线</div><div class="bk">有些路算不完——真本事是用巧劲逼近最好，而非逐条试遍。</div><div class="bu">港一多，走法就<b>组合爆炸</b>、根本试不完，只能用巧劲逼近：<b>贪心</b>起步快但未必最短，再<b>解开交叉的航段</b>、<b>把排错的港挪顺</b>，一步步把环线捋短。<br><span style="opacity:.82">用处：配送 · 芯片布线 · 冷链 · 巡检</span></div></div></div></div>'
   +'<div class="res" style="font-size:12px;color:rgba(239,230,207,.55)">点卡片翻面看门道'+(foil?' · 满载解锁 <b style="color:var(--gold-b)">烫金卡</b>！':'')+'</div><button class="act keep" id="todex">放入图鉴 →</button>';
  setTimeout(()=>{const c=$('c3d');if(c)c.classList.add('flip');},700);$('c3d').onclick=()=>$('c3d').classList.toggle('flip');$('todex').onclick=()=>dex(foil);}
 function dex(foil){const others=[['⏳','最优停止'],['🔔','排队论'],['🤝','博弈·合作'],['🏮','准入控制'],['🐮','牛鞭效应'],['🍶','线性规划'],['🎲','凯利公式'],['💎','背包问题']];
@@ -422,5 +422,5 @@ $('edge').onclick=()=>{$('edge').classList.remove('hook');$('drawer').classList.
 $('dx').onclick=()=>$('drawer').classList.remove('open');
 intro();
 </script>
-<script>(function(){if(window.parent===window)return;var ID="tsp";window.dex=function(foil){try{parent.postMessage({type:'level:complete',id:ID,perfect:!!foil},'*');}catch(e){}};var s=document.createElement('style');s.textContent='html,body{margin:0!important;height:100%!important;overflow:hidden!important;background:#0c0905}body{display:flex!important;align-items:center!important;justify-content:center!important}.stage{width:1000px!important;max-width:none!important;flex:0 0 auto!important;transform-origin:center center!important;border-radius:0!important;box-shadow:none!important}';document.head.appendChild(s);function fit(){var st=document.querySelector('.stage');if(st)st.style.transform='scale('+Math.min(innerWidth/1020,(innerHeight-100)/560)+')';}addEventListener('resize',fit);fit();setTimeout(fit,80);})();</script>
+<script>(function(){if(window.parent===window)return;var ID="tsp";window.dex=function(foil){try{parent.postMessage({type:'level:complete',id:ID,perfect:!!foil},'*');}catch(e){}};var s=document.createElement('style');s.textContent='html,body{margin:0!important;height:100%!important;overflow:hidden!important;background:#0c0905}body{display:flex!important;align-items:center!important;justify-content:center!important}.stage{width:1000px!important;max-width:none!important;flex:0 0 auto!important;transform-origin:center center!important;border-radius:0!important;box-shadow:none!important;opacity:0;transition:opacity .28s ease}';document.head.appendChild(s);function fit(){var st=document.querySelector('.stage');if(st){st.style.transform='scale('+Math.min(innerWidth/1020,(innerHeight-100)/560)+')';st.style.opacity='1';}}addEventListener('resize',fit);if(document.readyState!=='loading')fit();else addEventListener('DOMContentLoaded',fit);requestAnimationFrame(fit);addEventListener('load',fit);setTimeout(fit,120);})();</script>
 </body></html>
